@@ -10,6 +10,5 @@ import com.vedika.functionhall.model.Owner;
 public interface OwnerRepository extends MongoRepository<Owner, String> {
 
  
- List<Owner> findAllByOrderById();
 
 }
