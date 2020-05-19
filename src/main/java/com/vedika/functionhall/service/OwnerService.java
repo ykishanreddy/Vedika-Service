@@ -8,12 +8,5 @@ public interface OwnerService {
 
     List<Owner> findAll();
 
-  /*
-    List<Owner> findAllByOrderById();
-    
-    void saveOrUpdateOwner(Owner owner);
-
-    void deleteOwner(String id);
-    */
-
+ 
 }

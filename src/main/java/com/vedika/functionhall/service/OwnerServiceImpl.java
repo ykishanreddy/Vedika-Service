@@ -21,20 +21,5 @@ public class OwnerServiceImpl implements OwnerService {
         return ownerRepository.findAll();
     }
 
-/*
-    @Override
-    public List<Owner> findAllByOrderById() {
-        return ownerRepository.findAllByOrderById();
-    }
-    
-    
-    @Override
-    public void saveOrUpdateOwner(Owner owner) {
-        ownerRepository.save(owner);
-    }
 
-    @Override
-    public void deleteOwner(String id) {
-        ownerRepository.deleteById(id);
-    }
-}*/}
+}

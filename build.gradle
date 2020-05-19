@@ -8,17 +8,20 @@ group = 'com.vedikas'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '1.8'
 
-configurations {
-	compileOnly {
-		extendsFrom annotationProcessor
-	}
-}
 
 repositories {
 	mavenCentral()
 }
+ext {
+	set('springCloudVersion', "Hoxton.SR4")
+}
 
 dependencies {
+        implementation('io.jsonwebtoken:jjwt:0.2')
+     implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
+	implementation 'org.springframework.boot:spring-boot-starter-security'
+		implementation 'org.springframework.cloud:spring-cloud-starter-oauth2'
+	
 	implementation 'org.springframework.boot:spring-boot-starter-data-mongodb'
 	implementation 'org.springframework.boot:spring-boot-starter-data-mongodb-reactive'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
