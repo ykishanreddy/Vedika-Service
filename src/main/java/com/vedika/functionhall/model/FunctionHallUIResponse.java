@@ -3,7 +3,7 @@ package com.vedika.functionhall.model;
 public class FunctionHallUIResponse {
 
 
-	private String functionHallName;
+	private String name;
 	private String ownerFirstName;
 	private String ownerLastName;
 	private String ownerId;
@@ -12,13 +12,17 @@ public class FunctionHallUIResponse {
 	private String state;
 	private String city;
 	private int zipcode;
+	private String email;
+	private long corelationId;
 	
-	public String getFunctionHallName() {
-		return functionHallName;
+	public String getName() {
+		return name;
 	}
-	public void setFunctionHallName(String functionHallName) {
-		this.functionHallName = functionHallName;
+	public void setName(String name) {
+		this.name = name;
 	}
+	
+	
 	public String getOwnerFirstName() {
 		return ownerFirstName;
 	}
@@ -61,12 +65,25 @@ public class FunctionHallUIResponse {
 	public void setZipcode(int zipcode) {
 		this.zipcode = zipcode;
 	}
-	@Override
-	public String toString() {
-		return "FunctionHallUIResponse [functionHallName=" + functionHallName + ", ownerFirstName=" + ownerFirstName
-				+ ", ownerLastName=" + ownerLastName + ", ownerId=" + ownerId + ", street=" + street + ", state="
-				+ state + ", city=" + city + ", zipcode=" + zipcode + "]";
+
+	public String getEmail() {
+		return email;
+	}
+	public void setEmail(String email) {
+		this.email = email;
+	}
+	public long getCorelationId() {
+		return corelationId;
+	}
+	public void setCorelationId(long corelationId) {
+		this.corelationId = corelationId;
 	}
 
-	
+	@Override
+	public String toString() {
+		return "FunctionHallUIResponse [name=" + name + ", ownerFirstName=" + ownerFirstName + ", ownerLastName="
+				+ ownerLastName + ", ownerId=" + ownerId + ", street=" + street + ", state=" + state + ", city=" + city
+				+ ", zipcode=" + zipcode + ", email=" + email + ", corelationId=" + corelationId + "]";
+	}
+
 }

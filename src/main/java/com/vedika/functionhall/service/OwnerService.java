@@ -2,18 +2,21 @@ package com.vedika.functionhall.service;
 
 import java.util.List;
 
+import org.springframework.data.mongodb.repository.Query;
+
 import com.vedika.functionhall.model.Owner;
 
-public interface OwnerService {
+public interface OwnerService  {
 
     List<Owner> findAll();
-
-  /*
-    List<Owner> findAllByOrderById();
     
-    void saveOrUpdateOwner(Owner owner);
+    Owner saveOrUpdateOwner(Owner owner);
+    @Query(value="{ 'functionhall.city' : ?0 }")
+	List<Owner> findFunctionHallByCity(String city);
 
-    void deleteOwner(String id);
-    */
+	   @Query(value ="{ 'functionhall.name' : ?0 }")
+	List<Owner> findFunctionHallByName(String name);
 
+	  
+ 
 }

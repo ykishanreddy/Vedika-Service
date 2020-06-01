@@ -9,6 +9,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class Owner {
 	@Id
 	private String id;
+	private String name;
 
 	private String firstName;
 
@@ -20,7 +21,24 @@ public class Owner {
 
 	private String zipcode;
 
+	/* db ref */
 	private List<FunctionHall> functionhall;
+ private List<AwsCredentials> ImageDetials;
+ public List<AwsCredentials> getAwscredentials() {
+	return  ImageDetials;
+}
+
+public void setAwscredentials(List<AwsCredentials> awscredentials) {
+	this. ImageDetials = awscredentials;
+}
+
+public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
 
 	public String getId() {
 		return id;
@@ -80,8 +98,8 @@ public class Owner {
 
 	@Override
 	public String toString() {
-		return "Owner [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", city=" + city + ", state="
-				+ state + ", zipcode=" + zipcode + ", functionhall=" + functionhall + "]";
+		return "Owner [id=" + id + ", name=" + name + ", firstName=" + firstName + ", lastName=" + lastName + ", city="
+				+ city + ", state=" + state + ", zipcode=" + zipcode + ", functionhall=" + functionhall + "]";
 	}
 
 
