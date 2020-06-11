@@ -9,14 +9,64 @@ public class FunctionHall {
 	private String id;
 
 	private String name;
-	private long Contactno;
-
+	private String ownerId;
+	private String ownerFirstName;
+	private String ownerLastName;
+	
+    private String functionhallContactNumber;
 	private String street;
 	private String state;
 	private String city;
 	private int zipcode;
-	private String email;   
+	private String email;
+	private String bucketName;
+	private String imageDirectoryPath;
+	private String imageUrl;
 	private long corelationId;
+	
+	public String getFunctionhallContactNumber() {
+		return functionhallContactNumber;
+	}
+	public void setFunctionhallContactNumber(String functionhallContactNumber) {
+		this.functionhallContactNumber = functionhallContactNumber;
+	}
+	public String getOwnerId() {
+		return ownerId;
+	}
+	public void setOwnerId(String ownerId) {
+		this.ownerId = ownerId;
+	}
+	public String getOwnerFirstName() {
+		return ownerFirstName;
+	}
+	public void setOwnerFirstName(String ownerFirstName) {
+		this.ownerFirstName = ownerFirstName;
+	}
+	public String getOwnerLastName() {
+		return ownerLastName;
+	}
+	public void setOwnerLastName(String ownerLastName) {
+		this.ownerLastName = ownerLastName;
+	}
+	
+	public String getBucketName() {
+		return bucketName;
+	}
+	public void setBucketName(String bucketName) {
+		this.bucketName = bucketName;
+	}
+	public String getImageDirectoryPath() {
+		return imageDirectoryPath;
+	}
+	public void setImageDirectoryPath(String imageDirectoryPath) {
+		this.imageDirectoryPath = imageDirectoryPath;
+	}
+	public String getImageUrl() {
+		return imageUrl;
+	}
+	public void setImageUrl(String imageUrl) {
+		this.imageUrl = imageUrl;
+	}
 	public String getId() {
 		return id;
 	}
@@ -54,8 +104,6 @@ public class FunctionHall {
 	public void setZipcode(int zipcode) {
 		this.zipcode = zipcode;
 	}
-	
-
 	public String getEmail() {
 		return email;
 	}
@@ -68,19 +116,17 @@ public class FunctionHall {
 	public void setCorelationId(long corelationId) {
 		this.corelationId = corelationId;
 	}
-
-	public long getContactno() {
-		return Contactno;
-	}
-	public void setContactno(long contactno) {
-		Contactno = contactno;
-	}
 	@Override
 	public String toString() {
-		return "FunctionHall [id=" + id + ", name=" + name + ", Contactno=" + Contactno + ", street=" + street
-				+ ", state=" + state + ", city=" + city + ", zipcode=" + zipcode + ", email=" + email
-				+ ", corelationId=" + corelationId + "]";
+		return "FunctionHall [id=" + id + ", name=" + name + ", ownerId=" + ownerId + ", ownerFirstName="
+				+ ownerFirstName + ", ownerLastName=" + ownerLastName + ", functionhallContactNumber="
+				+ functionhallContactNumber + ", street=" + street + ", state=" + state + ", city=" + city
+				+ ", zipcode=" + zipcode + ", email=" + email + ", bucketName=" + bucketName + ", imageDirectoryPath="
+				+ imageDirectoryPath + ", imageUrl=" + imageUrl + ", corelationId=" + corelationId + "]";
 	}
+
+
+
 
 	
 }

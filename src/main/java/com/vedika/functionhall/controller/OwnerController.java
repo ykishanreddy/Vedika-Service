@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -24,18 +25,13 @@ import com.vedika.functionhall.service.OwnerService;
 
 @CrossOrigin(origins = "http://localhost:4200")
 @RestController
+@RequestMapping("/api")
 
 public class OwnerController {
 	
-
-	
 	@Autowired
 	private OwnerService ownerService;
-
-
-
-       
-     
+  
 	  @GetMapping(value = "/functionhalls")
  
 	public Response getAllFunctionHalls( )
@@ -67,6 +63,10 @@ public class OwnerController {
                         response.setStreet(functionHall.getStreet());
                         response.setState(functionHall.getState());
                         response.setZipcode(functionHall.getZipcode());
+                        response.setImageUrl(functionHall.getImageUrl());
+                        response.setFunctionhallContactNumber(functionHall.getFunctionhallContactNumber());
+                        response.setOwnerContactNumber(owner.getOwnerContactNumber());
+                        
 
 						functionhallsUI.add(response);
 					}

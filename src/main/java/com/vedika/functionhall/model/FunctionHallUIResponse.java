@@ -7,22 +7,39 @@ public class FunctionHallUIResponse {
 	private String ownerFirstName;
 	private String ownerLastName;
 	private String ownerId;
-
+    private String ownerContactNumber;
+    private String imageUrl;
 	private String street;
 	private String state;
 	private String city;
 	private int zipcode;
-	private String email;
-	private long corelationId;
+    private String functionhallContactNumber;
+
 	
+	public String getOwnerContactNumber() {
+		return ownerContactNumber;
+	}
+	public void setOwnerContactNumber(String ownerContactNumber) {
+		this.ownerContactNumber = ownerContactNumber;
+	}
+	public String getImageUrl() {
+		return imageUrl;
+	}
+	public void setImageUrl(String imageUrl) {
+		this.imageUrl = imageUrl;
+	}
+	public String getFunctionhallContactNumber() {
+		return functionhallContactNumber;
+	}
+	public void setFunctionhallContactNumber(String functionhallContactNumber) {
+		this.functionhallContactNumber = functionhallContactNumber;
+	}
 	public String getName() {
 		return name;
 	}
 	public void setName(String name) {
 		this.name = name;
 	}
-	
-	
 	public String getOwnerFirstName() {
 		return ownerFirstName;
 	}
@@ -65,25 +82,14 @@ public class FunctionHallUIResponse {
 	public void setZipcode(int zipcode) {
 		this.zipcode = zipcode;
 	}
-
-	public String getEmail() {
-		return email;
-	}
-	public void setEmail(String email) {
-		this.email = email;
-	}
-	public long getCorelationId() {
-		return corelationId;
-	}
-	public void setCorelationId(long corelationId) {
-		this.corelationId = corelationId;
-	}
-
 	@Override
 	public String toString() {
 		return "FunctionHallUIResponse [name=" + name + ", ownerFirstName=" + ownerFirstName + ", ownerLastName="
-				+ ownerLastName + ", ownerId=" + ownerId + ", street=" + street + ", state=" + state + ", city=" + city
-				+ ", zipcode=" + zipcode + ", email=" + email + ", corelationId=" + corelationId + "]";
+				+ ownerLastName + ", ownerId=" + ownerId + ", ownerContactNumber=" + ownerContactNumber + ", imageUrl="
+				+ imageUrl + ", street=" + street + ", state=" + state + ", city=" + city + ", zipcode=" + zipcode
+				+ ", functionhallContactNumber=" + functionhallContactNumber + "]";
 	}
 
-}
+
+
+	}

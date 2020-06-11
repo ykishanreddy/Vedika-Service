@@ -20,17 +20,19 @@ public class Owner {
 	private String state;
 
 	private String zipcode;
+    private String ownerContactNumber;
+
 
 	/* db ref */
 	private List<FunctionHall> functionhall;
- private List<AwsCredentials> ImageDetials;
- public List<AwsCredentials> getAwscredentials() {
-	return  ImageDetials;
-}
+ 
+public String getOwnerContactNumber() {
+		return ownerContactNumber;
+	}
 
-public void setAwscredentials(List<AwsCredentials> awscredentials) {
-	this. ImageDetials = awscredentials;
-}
+	public void setOwnerContactNumber(String ownerContactNumber) {
+		this.ownerContactNumber = ownerContactNumber;
+	}
 
 public String getName() {
 		return name;
@@ -99,7 +101,8 @@ public String getName() {
 	@Override
 	public String toString() {
 		return "Owner [id=" + id + ", name=" + name + ", firstName=" + firstName + ", lastName=" + lastName + ", city="
-				+ city + ", state=" + state + ", zipcode=" + zipcode + ", functionhall=" + functionhall + "]";
+				+ city + ", state=" + state + ", zipcode=" + zipcode + ", ownerContactNumber=" + ownerContactNumber
+				+ ", functionhall=" + functionhall + "]";
 	}
 
 

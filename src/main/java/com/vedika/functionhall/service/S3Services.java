@@ -1,20 +1,22 @@
 package com.vedika.functionhall.service;
 
+import java.io.ByteArrayOutputStream;
+import java.net.URL;
 import java.util.List;
 
 import org.springframework.web.multipart.MultipartFile;
 
-import com.vedika.functionhall.model.AwsCredentials;
-
 public interface S3Services {
 	
+	public ByteArrayOutputStream downloadFile(String corelationId);
 	
-	public void uploadFileToS3Bucket(String keyName, MultipartFile file);
 
-	//List<AwsCredentials> getAll();
+	public void uploadFile(String corelationId, MultipartFile file);
 
-//	public List<AwsCredentials> getAll();
+	public List<String> listFiles();
+	/* public URL storeObjectInS3(MultipartFile file, String corelationId);*/
 
-//	public AwsCredentials saveOrUpdateAwsCredentials(AwsCredentials awsCredentials);
+
+	
 
 }
