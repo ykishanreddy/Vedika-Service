@@ -19,8 +19,6 @@ import com.vedika.functionhall.model.FunctionHall;
 import com.vedika.functionhall.model.FunctionHallUIResponse;
 import com.vedika.functionhall.model.Owner;
 import com.vedika.functionhall.model.Response;
-import com.vedika.functionhall.model.ResponseForCity;
-import com.vedika.functionhall.model.ResponsefindByCityfunctionhall;
 import com.vedika.functionhall.service.OwnerService;
 
 @CrossOrigin(origins = "http://localhost:4200")
@@ -172,7 +170,7 @@ public class OwnerController {
 	*/
 	  
 
-		@GetMapping("functionhallsfindbyname/")
+		@GetMapping("functionhallsfindbyname/" )
 		@ResponseBody
 		public Response   findFunctionhallByName( 
 	            @RequestParam( value="name" ,required=false) String name) {
@@ -216,8 +214,6 @@ public class OwnerController {
 			return response;
 		}
 
-
-		  
 		
 		
 
