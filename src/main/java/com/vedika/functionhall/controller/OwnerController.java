@@ -29,6 +29,7 @@ import com.vedika.functionhall.service.OwnerService;
 
 public class OwnerController {
 	
+	
 	@Autowired
 	private OwnerService ownerService;
   
@@ -171,7 +172,7 @@ public class OwnerController {
 	*/
 	  
 
-		@GetMapping("/functionhallsname/")
+		@GetMapping("functionhallsfindbyname/")
 		@ResponseBody
 		public Response   findFunctionhallByName( 
 	            @RequestParam( value="name" ,required=false) String name) {
@@ -221,7 +222,7 @@ public class OwnerController {
 		
 
 
-		@GetMapping("/functionhall/")
+		@GetMapping("/functionhallsfindbycity/")
 		@ResponseBody
 		public Response   getFunctionhall( 
 	            @RequestParam( value="city" ,required=false) String city) {

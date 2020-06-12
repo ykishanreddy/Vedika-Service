@@ -1,12 +1,14 @@
 package com.vedika.functionhall.service;
 
 import java.io.ByteArrayOutputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.joda.time.DateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +20,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.amazonaws.AmazonClientException;
 import com.amazonaws.AmazonServiceException;
 import com.amazonaws.services.s3.AmazonS3;
+import com.amazonaws.services.s3.model.AmazonS3Exception;
 import com.amazonaws.services.s3.model.CannedAccessControlList;
 import com.amazonaws.services.s3.model.GetObjectRequest;
 import com.amazonaws.services.s3.model.ListObjectsRequest;
@@ -81,6 +84,7 @@ public class S3ServicesImpl implements S3Services {
 			
 			
 			
+			
 		s3client.putObject(new PutObjectRequest(bucketName, corelationId,file.getInputStream(), metadata).withCannedAcl(CannedAccessControlList.PublicRead));
 		s3client.getUrl("bucketName", "corelationId").toString();
 		System.out.println("filelink: " + s3client.getUrl(bucketName, corelationId));
@@ -105,6 +109,20 @@ public class S3ServicesImpl implements S3Services {
 	
 	}
 	
+	 public String getResourceUrl(String corelationId ) throws FileNotFoundException
+	 {
+	     try {
+	         return s3client.generatePresignedUrl(bucketName, corelationId, new DateTime().plusMinutes(5).toDate()).toString();
+	     }
+	     catch (AmazonS3Exception exception){
+	         if(exception.getStatusCode() == 404){
+	             throw new FileNotFoundException(corelationId);
+	         }
+	         else{
+	             throw exception;
+	         }
+	     }
+	 }
 	/* public URL uploadFile(MultipartFile file, String corelationid, String contentType) {
 	        ObjectMetadata objectMetadata = new ObjectMetadata();
 	        objectMetadata.setContentType(contentType);

@@ -21,13 +21,13 @@ public class DownloadFileController {
 	@Autowired
 	S3Services s3Services;
 	
-	@GetMapping("/api/file/{corelationid}")
-	public ResponseEntity<byte[]> downloadFile(@PathVariable String corelationid) {
-		ByteArrayOutputStream downloadInputStream = s3Services.downloadFile(corelationid);
+	@GetMapping("/api/file/{corelationId}")
+	public ResponseEntity<byte[]> downloadFile(@PathVariable String corelationId) {
+		ByteArrayOutputStream downloadInputStream = s3Services.downloadFile(corelationId);
 	
 		return ResponseEntity.ok()
-					.contentType(contentType(corelationid))
-					.header(HttpHeaders.CONTENT_DISPOSITION,"attachment; corelationid=\"" + corelationid + "\"")
+					.contentType(contentType(corelationId))
+					.header(HttpHeaders.CONTENT_DISPOSITION,"attachment; corelationid=\"" + corelationId + "\"")
 					.body(downloadInputStream.toByteArray());	
 	}
 	 
@@ -44,8 +44,8 @@ public class DownloadFileController {
 		return s3Services.listFiles();
 	}
 	
-	private MediaType contentType(String corelationid) {
-		String[] arr = corelationid.split("\\.");
+	private MediaType contentType(String corelationId) {
+		String[] arr = corelationId.split("\\.");
 		String type = arr[arr.length-1];
 		switch(type) {
 	     	case "txt": return MediaType.TEXT_PLAIN;
