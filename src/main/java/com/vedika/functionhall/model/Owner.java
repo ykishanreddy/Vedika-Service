@@ -1,3 +1,4 @@
+
 package com.vedika.functionhall.model;
 
 import java.util.List;
@@ -14,32 +15,25 @@ public class Owner {
 	private String firstName;
 
 	private String lastName;
-
+	private String functionhallname;
 	private String city;
 
 	private String state;
 
 	private String zipcode;
-    private String ownerContactNumber;
-
+	private String ownerContactNumber;
 
 	/* db ref */
+
 	private List<FunctionHall> functionhall;
- 
-public String getOwnerContactNumber() {
-		return ownerContactNumber;
-	}
+	private List<AccountDetails> accountdetails;
 
-	public void setOwnerContactNumber(String ownerContactNumber) {
-		this.ownerContactNumber = ownerContactNumber;
-	}
-
-public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
+	@Override
+	public String toString() {
+		return "Owner [id=" + id + ", name=" + name + ", firstName=" + firstName + ", lastName=" + lastName
+				+ ", functionhallname=" + functionhallname + ", city=" + city + ", state=" + state + ", zipcode="
+				+ zipcode + ", ownerContactNumber=" + ownerContactNumber + ", functionhall=" + functionhall
+				+ ", accountdetails=" + accountdetails + "]";
 	}
 
 	public String getId() {
@@ -48,6 +42,14 @@ public String getName() {
 
 	public void setId(String id) {
 		this.id = id;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public String getFirstName() {
@@ -64,6 +66,14 @@ public String getName() {
 
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
+	}
+
+	public String getFunctionhallname() {
+		return functionhallname;
+	}
+
+	public void setFunctionhallname(String functionhallname) {
+		this.functionhallname = functionhallname;
 	}
 
 	public String getCity() {
@@ -90,6 +100,14 @@ public String getName() {
 		this.zipcode = zipcode;
 	}
 
+	public String getOwnerContactNumber() {
+		return ownerContactNumber;
+	}
+
+	public void setOwnerContactNumber(String ownerContactNumber) {
+		this.ownerContactNumber = ownerContactNumber;
+	}
+
 	public List<FunctionHall> getFunctionhall() {
 		return functionhall;
 	}
@@ -98,13 +116,11 @@ public String getName() {
 		this.functionhall = functionhall;
 	}
 
-	@Override
-	public String toString() {
-		return "Owner [id=" + id + ", name=" + name + ", firstName=" + firstName + ", lastName=" + lastName + ", city="
-				+ city + ", state=" + state + ", zipcode=" + zipcode + ", ownerContactNumber=" + ownerContactNumber
-				+ ", functionhall=" + functionhall + "]";
+	public List<AccountDetails> getAccountdetails() {
+		return accountdetails;
 	}
 
-
-	
+	public void setAccountdetails(List<AccountDetails> accountdetails) {
+		this.accountdetails = accountdetails;
+	}
 }

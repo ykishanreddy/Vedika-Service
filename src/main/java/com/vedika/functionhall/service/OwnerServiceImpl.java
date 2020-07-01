@@ -1,64 +1,94 @@
 package com.vedika.functionhall.service;
 
-
+import java.io.FileNotFoundException;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Service;
 
+import com.mongodb.MongoException;
+import com.mongodb.client.result.UpdateResult;
+import com.twilio.Twilio;
+import com.twilio.rest.api.v2010.account.Message;
+import com.twilio.type.PhoneNumber;
+import com.vedika.functionhall.config.TwilioConfiguration;
 import com.vedika.functionhall.model.Owner;
 import com.vedika.functionhall.repository.OwnerRepository;
+import com.vedika.functionhall.service.OwnerService;
 
-@Service
+@Service("twilio")
 public class OwnerServiceImpl implements OwnerService {
 
-    @Autowired
-    private OwnerRepository ownerRepository;
+	@Autowired
+	private OwnerRepository ownerRepository;
 
-    @Override
-    public List<Owner> findAll() {
-        return ownerRepository.findAll();
-    }
-    @Override
+	@Autowired
+	private MongoTemplate mongoTemplate;
+
+	private static final Logger LOGGER = LoggerFactory.getLogger(OwnerServiceImpl.class);
+
+	private final TwilioConfiguration twilioConfiguration;
+
+	@Autowired
+	public OwnerServiceImpl(TwilioConfiguration twilioConfiguration) {
+		this.twilioConfiguration = twilioConfiguration;
+	}
+
+	public boolean send2FaCode(String mobileNumber, String twoFaCode) {
+
+		Message.creator(new PhoneNumber(mobileNumber), new PhoneNumber(twilioConfiguration.getTrialNumber()),
+				"Your Two Factor Authentication code is: " + twoFaCode).create();
+
+		return true;
+
+	}
+
+	private boolean isPhoneNumberValid(String phoneNumber) {
+		return true;
+	}
+
+	@Override
+	public List<Owner> sendOTP(String mobileNumber) {
+		return ownerRepository.sendOTP(mobileNumber);
+	}
+
+	@Override
+	public List<Owner> findAll() {
+		return ownerRepository.findAll();
+	}
+
+	@Override
 	public Owner saveOrUpdateOwner(Owner owner) {
-      return ownerRepository.save(owner)	;	
+		return ownerRepository.save(owner);
 	}
-	
-	@Override
-	public List<Owner> findFunctionHallByCity(String city) {
-		
-		return ownerRepository.findFunctionHallByCity(city);
-	}
-
 
 	@Override
-	public List<Owner> findFunctionHallByName(String name) {
-		// TODO Auto-generated method stub
-		return ownerRepository.findFunctionHallByName(name);
+	public List<Owner> findFunctionHallByNameAndCity(String city, String name) {
+		return ownerRepository.findFunctionHallByNameAndCity(city, name);
 	}
 
+	@Override
 
-
-
-	
-
-	
-
-
-
-
-
-
-	
+	public void update(String corelationid, String imageUrl) throws FileNotFoundException, RuntimeException {
+		try {
+			Query query = new Query();
+			query.addCriteria(Criteria.where("functionhall.corelationId").is(corelationid));
+			Owner ownerref = mongoTemplate.findOne(query, Owner.class);
+			System.out.println(ownerref);
+			UpdateResult update = mongoTemplate.updateMulti(query,
+					new Update().addToSet("functionhall.$.imageUrl", imageUrl), Owner.class);
+			System.out.println(update);
+		} catch (MongoException e) {
+			System.out.println("nessary file not present" + e);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 
 }
-
-
-
-
-
-
-
-
-	
-

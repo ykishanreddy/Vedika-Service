@@ -1,0 +1,12 @@
+
+twilio:
+  account_sid: ACa5e1fb3bfe3d079ef48e553685d98d88
+  auth_token: b68c6c106915842c78b5265c4d69445a
+  trial_number: +12059973730
+amazonProperties:
+  endpointUrl: https://s3.ap-south-1.amazonaws.com
+  accessKey: AKIAT2UPXHNUCSEARCFJ
+  secretKey: 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
+  bucketName: suntechnoservices-javadevolpers
+  
+ 

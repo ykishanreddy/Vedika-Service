@@ -1,24 +1,34 @@
 package com.vedika.functionhall.controller;
 
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
+import com.vedika.functionhall.model.Amazonresponse;
 import com.vedika.functionhall.model.FunctionHall;
 import com.vedika.functionhall.model.FunctionHallUIResponse;
+import com.vedika.functionhall.model.Object;
 import com.vedika.functionhall.model.Owner;
 import com.vedika.functionhall.model.Response;
+import com.vedika.functionhall.service.AmazonClient;
 import com.vedika.functionhall.service.OwnerService;
 
 @CrossOrigin(origins = "http://localhost:4200")
@@ -26,46 +36,47 @@ import com.vedika.functionhall.service.OwnerService;
 @RequestMapping("/api")
 
 public class OwnerController {
-	
-	
+
+	private AmazonClient amazonClient;
+
+	@Autowired
+	OwnerController(AmazonClient amazonClient) {
+		this.amazonClient = amazonClient;
+	}
+
 	@Autowired
 	private OwnerService ownerService;
-  
-	  @GetMapping(value = "/functionhalls")
- 
-	public Response getAllFunctionHalls( )
- {
-        
+
+	@RequestMapping(value = "/functionhalls/", method = RequestMethod.GET)
+	public Response getAllFunctionHalls() {
 
 		List<Owner> functionhallOwners = ownerService.findAll();
-		
+
 		List<FunctionHallUIResponse> functionhallsUI = new ArrayList<FunctionHallUIResponse>();
 
-		if(null != functionhallOwners && !functionhallOwners.isEmpty()) {
-			for(Owner owner : functionhallOwners) {
+		if (null != functionhallOwners && !functionhallOwners.isEmpty()) {
+			for (Owner owner : functionhallOwners) {
 
 				List<FunctionHall> funtionhalls = owner.getFunctionhall();
 
-				if(null != funtionhalls && !funtionhalls.isEmpty()) {
+				if (null != funtionhalls && !funtionhalls.isEmpty()) {
 
-					for(FunctionHall functionHall : funtionhalls) {
+					for (FunctionHall functionHall : funtionhalls) {
 
 						FunctionHallUIResponse response = new FunctionHallUIResponse();
-						
 
 						response.setName(functionHall.getName());
 						response.setOwnerFirstName(owner.getFirstName());
 						response.setOwnerLastName(owner.getLastName());
 						response.setOwnerId(owner.getId());
-
 						response.setCity(functionHall.getCity());
-                        response.setStreet(functionHall.getStreet());
-                        response.setState(functionHall.getState());
-                        response.setZipcode(functionHall.getZipcode());
-                        response.setImageUrl(functionHall.getImageUrl());
-                        response.setFunctionhallContactNumber(functionHall.getFunctionhallContactNumber());
-                        response.setOwnerContactNumber(owner.getOwnerContactNumber());
-                        
+						response.setStreet(functionHall.getStreet());
+						response.setState(functionHall.getState());
+						response.setZipcode(functionHall.getZipcode());
+						response.setImageUrl(functionHall.getImageUrl());
+						response.setCorelationid(functionHall.getCorelationId());
+						response.setFunctionhallContactNumber(functionHall.getFunctionhallContactNumber());
+						response.setOwnerContactNumber(owner.getOwnerContactNumber());
 
 						functionhallsUI.add(response);
 					}
@@ -73,204 +84,97 @@ public class OwnerController {
 			}
 
 		}
-		
+
 		Response response = new Response();
 		response.setFunctionHalls(functionhallsUI);
 		return response;
 	}
 
-/*
+	@RequestMapping(value = "/functionhallsBy/", method = RequestMethod.GET)
 
-		@GetMapping("/functionhallbycity/")
-		@ResponseBody
-		public ResponseForCity  getByFunctionhalls( 
-	            @RequestParam( value="city" ,required=false) String city) {
-			
-		
-			List<Owner> functionhallOwners = ownerService.findFunctionHallByCity( city);
+	public Response findFunctionhallByNameAndCity(@RequestParam(value = "city", required = false) String city,
+			@RequestParam(value = "name", required = false) String name) {
 
-			List<ResponsefindByCityfunctionhall> functionhallsUI = new ArrayList<ResponsefindByCityfunctionhall>();
+		List<Owner> functionhallOwners = ownerService.findFunctionHallByNameAndCity(city, name);
 
-			if(null != functionhallOwners && !functionhallOwners.isEmpty()) {
-				for(Owner owner : functionhallOwners) {
+		List<FunctionHallUIResponse> functionhallsUI = new ArrayList<FunctionHallUIResponse>();
 
-				List<FunctionHall> funtionhall = owner.getFunctionhall();
+		if (null != functionhallOwners && !functionhallOwners.isEmpty()) {
+			for (Owner owner : functionhallOwners) {
 
-					if(null != funtionhall && !funtionhall.isEmpty()) {
+				List<FunctionHall> funtionhalls = owner.getFunctionhall();
 
-						for(FunctionHall functionHall : funtionhall) {
-							ResponsefindByCityfunctionhall response = new ResponsefindByCityfunctionhall();
-							response.setId(owner.getId());
-							response.setFunctionHallName(functionHall.getName());
-							response.setCity(functionHall.getCity());
-	                        response.setStreet(functionHall.getStreet());
-	                        response.setState(functionHall.getState());
-	                        response.setZipcode(functionHall.getZipcode());
+				if (null != funtionhalls && !funtionhalls.isEmpty()) {
 
-							functionhallsUI.add(response);
-						}
+					for (FunctionHall functionHall : funtionhalls) {
+
+						FunctionHallUIResponse response = new FunctionHallUIResponse();
+						response.setName(functionHall.getName());
+						response.setOwnerFirstName(owner.getFirstName());
+						response.setOwnerLastName(owner.getLastName());
+						response.setOwnerId(owner.getId());
+						response.setCity(functionHall.getCity());
+						response.setStreet(functionHall.getStreet());
+						response.setState(functionHall.getState());
+						response.setZipcode(functionHall.getZipcode());
+						response.setImageUrl(functionHall.getImageUrl());
+						response.setCorelationid(functionHall.getCorelationId());
+						response.setFunctionhallContactNumber(functionHall.getFunctionhallContactNumber());
+						response.setOwnerContactNumber(owner.getOwnerContactNumber());
+
+						functionhallsUI.add(response);
 					}
 				}
-
 			}
-			
-			ResponseForCity response = new ResponseForCity();
-			response. setFunctionHalls(functionhallsUI);
-			return response;
 
-
-		 
-		}	
-
-
-
-	
-		@GetMapping("/functionhallbyname/")
-		@ResponseBody
-		public ResponseForCity  getByFunctionhallName( 
-	            @RequestParam( value="name" ,required=false) String name) {
-			
-		
-			List<Owner> functionhallOwners = ownerService.findFunctionHallByName(name);
-
-			List<ResponsefindByCityfunctionhall> functionhallsUI = new ArrayList<ResponsefindByCityfunctionhall>();
-
-			if(null != functionhallOwners && !functionhallOwners.isEmpty()) {
-				for(Owner owner : functionhallOwners) {
-
-				List<FunctionHall> funtionhall = owner.getFunctionhall();
-
-					if(null != funtionhall && !funtionhall.isEmpty()) {
-
-						for(FunctionHall functionHall : funtionhall) {
-							ResponsefindByCityfunctionhall response = new ResponsefindByCityfunctionhall();
-							
-							response.setId(owner.getId());
-							response.setFunctionHallName(functionHall.getName());
-							response.setCity(functionHall.getCity());
-	                        response.setStreet(functionHall.getStreet());
-	                        response.setState(functionHall.getState());
-	                        response.setZipcode(functionHall.getZipcode());
-
-							functionhallsUI.add(response);
-						}
-					}
-				}
-
-			}
-			
-			ResponseForCity response = new ResponseForCity();
-			response. setFunctionHalls(functionhallsUI);
-			return response;
- 
-		}	
-		
-		  
-	  
-	*/
-	  
-
-		@GetMapping("functionhallsfindbyname/" )
-		@ResponseBody
-		public Response   findFunctionhallByName( 
-	            @RequestParam( value="name" ,required=false) String name) {
-	  
-
-	        
-
-			List<Owner> functionhallOwners = ownerService.findFunctionHallByName(name);
-
-			List<FunctionHallUIResponse> functionhallsUI = new ArrayList<FunctionHallUIResponse>();
-
-			if(null != functionhallOwners && !functionhallOwners.isEmpty()) {
-				for(Owner owner : functionhallOwners) {
-
-					List<FunctionHall> funtionhalls = owner.getFunctionhall();
-
-					if(null != funtionhalls && !funtionhalls.isEmpty()) {
-
-						for(FunctionHall functionHall : funtionhalls) {
-
-							FunctionHallUIResponse response = new FunctionHallUIResponse();
-							response.setOwnerFirstName(owner.getFirstName());
-							response.setOwnerLastName(owner.getLastName());
-							response.setOwnerId(owner.getId());
-
-							response.setName(functionHall.getName());
-							response.setCity(functionHall.getCity());
-	                        response.setStreet(functionHall.getStreet());
-	                        response.setState(functionHall.getState());
-	                        response.setZipcode(functionHall.getZipcode());
-
-							functionhallsUI.add(response);
-						}
-					}
-				}
-
-			}
-			
-			Response response = new Response();
-			response.setFunctionHalls(functionhallsUI);
-			return response;
 		}
 
-		
-		
+		Response response = new Response();
+		response.setFunctionHalls(functionhallsUI);
+		return response;
+	}
 
+	@RequestMapping(value = "/user/verification", method = RequestMethod.POST)
+	public Object sendOTP(@RequestParam String mobileNumber, @RequestBody Object response1) {
+		Object res = new Object();
+		res.setRequestId(res.getRequestId());
+		res.setMobileNumber(res.getMobileNumber());
+		res.setMessage(res.getMessage());
+		String twoFaCode = String.valueOf(new Random().nextInt(9999) + 1000);
+		ownerService.send2FaCode(mobileNumber, twoFaCode);
+		return response1;
+	}
 
-		@GetMapping("/functionhallsfindbycity/")
-		@ResponseBody
-		public Response   getFunctionhall( 
-	            @RequestParam( value="city" ,required=false) String city) {
-	  
+	@RequestMapping(value = "user/verification", method = RequestMethod.PUT)
+	public ResponseEntity<?> verify(@RequestParam String mobileNumber) {
 
-	        
+		boolean isValid = true;
 
-			List<Owner> functionhallOwners = ownerService.findFunctionHallByCity(city);
+		if (isValid)
+			return new ResponseEntity<>(HttpStatus.OK);
 
-			List<FunctionHallUIResponse> functionhallsUI = new ArrayList<FunctionHallUIResponse>();
+		return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+	}
 
-			if(null != functionhallOwners && !functionhallOwners.isEmpty()) {
-				for(Owner owner : functionhallOwners) {
+	@PostMapping(value = "/functionhalls")
+	public ResponseEntity<?> saveOrUpdateOwner(@RequestBody Owner owner) {
+		ownerService.saveOrUpdateOwner(owner);
+		return new ResponseEntity("functionhall details added successfully", HttpStatus.OK);
+	}
 
-					List<FunctionHall> funtionhalls = owner.getFunctionhall();
+	@RequestMapping(value = "/image/", method = RequestMethod.POST)
 
-					if(null != funtionhalls && !funtionhalls.isEmpty()) {
+	public Amazonresponse image(@RequestParam(value = "file") MultipartFile file, String corelationid)
+			throws IOException {
 
-						for(FunctionHall functionHall : funtionhalls) {
+		Amazonresponse response = new Amazonresponse();
+		response.setMsg(" uploading request submitted successfully.");
 
-							FunctionHallUIResponse response = new FunctionHallUIResponse();
-							
-							response.setName(functionHall.getName());
-							response.setOwnerFirstName(owner.getFirstName());
-							response.setOwnerLastName(owner.getLastName());
-							response.setOwnerId(owner.getId());
+		String imageUrl = amazonClient.uploadFile(file, corelationid);
 
-							
-							response.setCity(functionHall.getCity());
-	                        response.setStreet(functionHall.getStreet());
-	                        response.setState(functionHall.getState());
-	                        response.setZipcode(functionHall.getZipcode());
+		ownerService.update(corelationid, imageUrl);
 
-							functionhallsUI.add(response);
-						}
-					}
-				}
+		return response;
+	}
 
-			}
-			
-			Response response = new Response();
-			response.setFunctionHalls(functionhallsUI);
-			return response;
-		}
-		
-		
-		@PostMapping(value = "/functionhalls")
-	    public ResponseEntity<?> saveOrUpdateOwner(@RequestBody Owner owner) {
-	        ownerService.saveOrUpdateOwner(owner);
-	        return new ResponseEntity("functionhall details added successfully", HttpStatus.OK);
-	    }
-	 
-		
 }
-

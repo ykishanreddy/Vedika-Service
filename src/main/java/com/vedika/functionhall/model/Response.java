@@ -4,8 +4,6 @@ import java.util.List;
 
 public class Response {
 
-	
-	
 	private List<FunctionHallUIResponse> functionHalls;
 
 	public List<FunctionHallUIResponse> getFunctionHalls() {
@@ -22,10 +20,5 @@ public class Response {
 				+ ", getClass()=" + getClass() + ", hashCode()=" + hashCode() + ", toString()=" + super.toString()
 				+ "]";
 	}
-
-
-	
-
-
 
 }
