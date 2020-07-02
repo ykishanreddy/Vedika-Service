@@ -206,6 +206,9 @@ public class OwnerController {
 	        	response1.setBranch(functionHall.getBranch());
 	        	response1.setCity(functionHall.getCity());
 	        	response1.setIfsc(functionHall.getIfsc());
+	        	response1.setContact(functionHall.getContact());
+	        	response1.setState(functionHall.getState());
+	        	response1.setDistrict(functionHall.getDistrict());
 	        	functionhallsUI.add(response1);
 	        	System.out.println(response1);
 	        	  

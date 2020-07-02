@@ -1,7 +1,7 @@
 
 twilio:
   account_sid: ACa5e1fb3bfe3d079ef48e553685d98d88
-  auth_token: 31d75a01cee6ad0356671d7afa4aaf3c
+  auth_token: abd44b40551e66702b08f76d111eb485
   trial_number: +12059973730
 amazonProperties:
   endpointUrl: https://s3.ap-south-1.amazonaws.com

@@ -31,7 +31,10 @@ compile group: 'org.springframework.boot', name: 'spring-boot-starter-data-mongo
      
 
 	implementation 'org.springframework.boot:spring-boot-starter-web'
-		runtime group: 'com.twilio.sdk', name: 'twilio', version: '7.1.0'
+		//runtime group: 'com.twilio.sdk', name: 'twilio', version: '7.1.0'
+		compile group: 'com.twilio.sdk', name: 'twilio', version: '7.1.0'
+//Thanks for using https://jar-download.com
+		
 	
 	// https://mvnrepository.com/artifact/com.amazonaws/aws-java-sdk
 compile group: 'com.amazonaws', name: 'aws-java-sdk', version: '1.2.1'

@@ -26,14 +26,13 @@ public class Owner {
 	/* db ref */
 
 	private List<FunctionHall> functionhall;
-	private List<AccountDetails> accountdetails;
 
 	@Override
 	public String toString() {
 		return "Owner [id=" + id + ", name=" + name + ", firstName=" + firstName + ", lastName=" + lastName
 				+ ", functionhallname=" + functionhallname + ", city=" + city + ", state=" + state + ", zipcode="
 				+ zipcode + ", ownerContactNumber=" + ownerContactNumber + ", functionhall=" + functionhall
-				+ ", accountdetails=" + accountdetails + "]";
+				+  "]";
 	}
 
 	public String getId() {
@@ -116,11 +115,5 @@ public class Owner {
 		this.functionhall = functionhall;
 	}
 
-	public List<AccountDetails> getAccountdetails() {
-		return accountdetails;
-	}
-
-	public void setAccountdetails(List<AccountDetails> accountdetails) {
-		this.accountdetails = accountdetails;
-	}
+	
 }
