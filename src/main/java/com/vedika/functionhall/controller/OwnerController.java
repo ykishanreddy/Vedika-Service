@@ -23,12 +23,17 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.vedika.functionhall.model.Amazonresponse;
+import com.vedika.functionhall.model.Bank;
+import com.vedika.functionhall.model.BankDetails;
 import com.vedika.functionhall.model.FunctionHall;
 import com.vedika.functionhall.model.FunctionHallUIResponse;
 import com.vedika.functionhall.model.Object;
 import com.vedika.functionhall.model.Owner;
 import com.vedika.functionhall.model.Response;
+import com.vedika.functionhall.model.ResponseBankdetails;
+import com.vedika.functionhall.model.Responsebank;
 import com.vedika.functionhall.service.AmazonClient;
+import com.vedika.functionhall.service.BankService;
 import com.vedika.functionhall.service.OwnerService;
 
 @CrossOrigin(origins = "http://localhost:4200")
@@ -46,6 +51,8 @@ public class OwnerController {
 
 	@Autowired
 	private OwnerService ownerService;
+	@Autowired
+	private BankService bankservice;
 
 	@RequestMapping(value = "/functionhalls/", method = RequestMethod.GET)
 	public Response getAllFunctionHalls() {
@@ -176,5 +183,46 @@ public class OwnerController {
 
 		return response;
 	}
+	@GetMapping("/bankdetails")
+	public ResponseBankdetails  getBank(@RequestParam(value = "branch") String branch) {
+		
+		List<Bank> response=bankservice.findbybank(branch);
 
+		List<Responsebank> functionhallsUI = new ArrayList<Responsebank>();
+		if (null != response && !response.isEmpty()) {
+			for (Bank owner : response) {
+				
+				List<BankDetails> funtionhalls = owner.getSheet1();
+				if (null != funtionhalls && !funtionhalls.isEmpty()) {
+					for (BankDetails functionHall : funtionhalls) {
+			
+		
+	             	  
+	        	Responsebank response1=new Responsebank();
+	        	
+	        	response1.setId(owner.get_id());
+	        	response1.setAddress(functionHall.getAddress());
+	        	response1.setBankname(functionHall.getBankname());
+	        	response1.setBranch(functionHall.getBranch());
+	        	response1.setCity(functionHall.getCity());
+	        	response1.setIfsc(functionHall.getIfsc());
+	        	functionhallsUI.add(response1);
+	        	System.out.println(response1);
+	        	  
+	        	 	
+	        	
+					}}}
+				}
+		ResponseBankdetails res=new ResponseBankdetails();
+		res.setBankdetails(functionhallsUI);
+		
+		
+		return res;
+		
+			
+			
+		}
 }
+
+
+
