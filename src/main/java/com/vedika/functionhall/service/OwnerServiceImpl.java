@@ -42,7 +42,7 @@ public class OwnerServiceImpl implements OwnerService {
 
 	public boolean send2FaCode(String mobileNumber, String twoFaCode) {
 
-		Message.creator(new PhoneNumber(mobileNumber), new PhoneNumber(twilioConfiguration.getTrialNumber()),
+		Message.creator(new PhoneNumber("+917032119349"), new PhoneNumber(twilioConfiguration.getTrialNumber()),
 				"Your Two Factor Authentication code is: " + twoFaCode).create();
 
 		return true;
