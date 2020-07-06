@@ -13,12 +13,14 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestPart;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -78,6 +80,11 @@ public class OwnerController {
 						response.setOwnerId(owner.getId());
 						response.setCity(functionHall.getCity());
 						response.setStreet(functionHall.getStreet());
+						response.setFunctionhalldescription(functionHall.getFunctionhalldescription());
+						response.setFunctionhalltype(functionHall.getFunctionhalltype());
+						response.setMaximumguest(functionHall.getMaximumguest());
+						response.setFoodtype(functionHall.getFoodtype());
+						response.setRoomtype(functionHall.getRoomtype());
 						response.setState(functionHall.getState());
 						response.setZipcode(functionHall.getZipcode());
 						response.setImageUrl(functionHall.getImageUrl());
@@ -142,18 +149,18 @@ public class OwnerController {
 	}
 
 	@RequestMapping(value = "/user/verification", method = RequestMethod.POST)
-	public Object sendOTP(@RequestParam String mobileNumber, @RequestBody Object response1) {
+	public ResponseEntity<Object> sendOTP(@RequestParam String mobileNumber, @RequestBody Object response1) {
 		Object res = new Object();
 		res.setRequestId(res.getRequestId());
 		res.setMobileNumber(res.getMobileNumber());
 		res.setMessage(res.getMessage());
 		String twoFaCode = String.valueOf(new Random().nextInt(9999) + 1000);
 		ownerService.send2FaCode(mobileNumber, twoFaCode);
-		return response1;
+		return new ResponseEntity<>(response1,HttpStatus.OK);
 	}
 
 	@RequestMapping(value = "user/verification", method = RequestMethod.PUT)
-	public ResponseEntity<?> verify(@RequestParam String mobileNumber) {
+	public ResponseEntity<Object> verify(@RequestParam String mobileNumber) {
 
 		boolean isValid = true;
 
@@ -183,49 +190,82 @@ public class OwnerController {
 
 		return response;
 	}
+
 	@GetMapping("/bankdetails")
-	public ResponseBankdetails  getBank(@RequestParam(value = "branch") String branch) {
-		
-		List<Bank> response=bankservice.findbybank(branch);
+	public ResponseBankdetails getBank(@RequestParam(value = "branch") String branch) {
+
+		List<Bank> response = bankservice.findbybank(branch);
 
 		List<Responsebank> functionhallsUI = new ArrayList<Responsebank>();
 		if (null != response && !response.isEmpty()) {
 			for (Bank owner : response) {
-				
-				List<BankDetails> funtionhalls = owner.getSheet1();
+
+				List<BankDetails> funtionhalls = owner.getBankdetails();
 				if (null != funtionhalls && !funtionhalls.isEmpty()) {
 					for (BankDetails functionHall : funtionhalls) {
-			
-		
-	             	  
-	        	Responsebank response1=new Responsebank();
-	        	
-	        	response1.setId(owner.get_id());
-	        	response1.setAddress(functionHall.getAddress());
-	        	response1.setBankname(functionHall.getBankname());
-	        	response1.setBranch(functionHall.getBranch());
-	        	response1.setCity(functionHall.getCity());
-	        	response1.setIfsc(functionHall.getIfsc());
-	        	response1.setContact(functionHall.getContact());
-	        	response1.setState(functionHall.getState());
-	        	response1.setDistrict(functionHall.getDistrict());
-	        	functionhallsUI.add(response1);
-	        	System.out.println(response1);
-	        	  
-	        	 	
-	        	
-					}}}
+
+						Responsebank response1 = new Responsebank();
+
+						response1.setId(owner.get_id());
+						response1.setAddress(functionHall.getAddress());
+						response1.setBankname(functionHall.getBankname());
+						response1.setBranch(functionHall.getBranch());
+						response1.setCity(functionHall.getCity());
+						response1.setIfsc(functionHall.getIfsc());
+						response1.setContact(functionHall.getContact());
+						response1.setState(functionHall.getState());
+						response1.setDistrict(functionHall.getDistrict());
+						functionhallsUI.add(response1);
+						System.out.println(response1);
+
+					}
 				}
-		ResponseBankdetails res=new ResponseBankdetails();
-		res.setBankdetails(functionhallsUI);
-		
-		
-		return res;
-		
-			
-			
+			}
 		}
+		ResponseBankdetails res = new ResponseBankdetails();
+		res.setBankdetails(functionhallsUI);
+
+		return res;
+
+	}
+
+	@GetMapping("/bankdetails/")
+	public ResponseBankdetails getBank(@RequestParam(value = "bankname") String bankname,
+			@RequestParam(value = "branch") String branch) {
+
+		List<Bank> response = bankservice.findbyBranchAndBank(bankname, branch);
+
+		List<Responsebank> functionhallsUI = new ArrayList<Responsebank>();
+		if (null != response && !response.isEmpty()) {
+			for (Bank owner : response) {
+
+				List<BankDetails> funtionhalls = owner.getBankdetails();
+				if (null != funtionhalls && !funtionhalls.isEmpty()) {
+					for (BankDetails functionHall : funtionhalls) {
+
+						Responsebank response1 = new Responsebank();
+
+						response1.setId(owner.get_id());
+						response1.setAddress(functionHall.getAddress());
+						response1.setBankname(functionHall.getBankname());
+						response1.setBranch(functionHall.getBranch());
+						response1.setCity(functionHall.getCity());
+						response1.setIfsc(functionHall.getIfsc());
+						response1.setContact(functionHall.getContact());
+						response1.setState(functionHall.getState());
+						response1.setDistrict(functionHall.getDistrict());
+						functionhallsUI.add(response1);
+						System.out.println(response1);
+
+					}
+				}
+			}
+		}
+		ResponseBankdetails res = new ResponseBankdetails();
+		res.setBankdetails(functionhallsUI);
+
+		return res;
+
+	}
+
 }
-
-
-

@@ -22,5 +22,10 @@ public class BankServiceImple implements BankService {
 		
 		return bankrepository.findbybank( branch);
 	}
+	@Override
+	public List<Bank> findbyBranchAndBank(String bankname, String branch) {
+		// TODO Auto-generated method stub
+		return bankrepository.findbyBranchAndBank( bankname,branch);
+	}
 
 }

@@ -10,7 +10,7 @@ public class Bank {
 	    private String _id;
 	    
 	   
-	List<BankDetails> Sheet1;
+	List<BankDetails> bankdetails;
 
 
 	public String get_id() {
@@ -23,13 +23,14 @@ public class Bank {
 	}
 
 
-	public List<BankDetails> getSheet1() {
-		return Sheet1;
+	public List<BankDetails> getBankdetails() {
+		return bankdetails;
 	}
 
 
-	public void setSheet1(List<BankDetails> sheet1) {
-		Sheet1 = sheet1;
+	public void setBankdetails(List<BankDetails> bankdetails) {
+		this.bankdetails = bankdetails;
 	}
+
 	   
 }

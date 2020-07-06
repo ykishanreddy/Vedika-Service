@@ -8,11 +8,56 @@ public class FunctionHallUIResponse {
 	private String ownerFirstName;
 	private String ownerLastName;
 	private String ownerId;
+	private String functionhalldescription;
+	private String functionhalltype;
+	private String foodtype;
+	private int maximumguest;
+	private String roomtype;
 	private String ownerContactNumber;
 	private String[] ImageUrl;
 	private String street;
 	private String state;
 	private String corelationid;
+
+	public String getFunctionhalldescription() {
+		return functionhalldescription;
+	}
+
+	public void setFunctionhalldescription(String functionhalldescription) {
+		this.functionhalldescription = functionhalldescription;
+	}
+
+	public String getFunctionhalltype() {
+		return functionhalltype;
+	}
+
+	public void setFunctionhalltype(String functionhalltype) {
+		this.functionhalltype = functionhalltype;
+	}
+
+	public String getFoodtype() {
+		return foodtype;
+	}
+
+	public void setFoodtype(String foodtype) {
+		this.foodtype = foodtype;
+	}
+
+	public int getMaximumguest() {
+		return maximumguest;
+	}
+
+	public void setMaximumguest(int maximumguest) {
+		this.maximumguest = maximumguest;
+	}
+
+	public String getRoomtype() {
+		return roomtype;
+	}
+
+	public void setRoomtype(String roomtype) {
+		this.roomtype = roomtype;
+	}
 
 	public String getCorelationid() {
 		return corelationid;
@@ -106,15 +151,7 @@ public class FunctionHallUIResponse {
 		this.zipcode = zipcode;
 	}
 
-	@Override
-	public String toString() {
-		return "FunctionHallUIResponse [name=" + name + ", ownerFirstName=" + ownerFirstName + ", ownerLastName="
-				+ ownerLastName + ", ownerId=" + ownerId + ", ownerContactNumber=" + ownerContactNumber + ", ImageUrl="
-				+ Arrays.toString(ImageUrl) + ", street=" + street + ", state=" + state + ", corelationid="
-				+ corelationid + ", city=" + city + ", zipcode=" + zipcode + ", functionhallContactNumber="
-				+ functionhallContactNumber + "]";
-	}
-
+	
 	public String[] getImageUrl() {
 		return ImageUrl;
 	}
@@ -122,5 +159,17 @@ public class FunctionHallUIResponse {
 	public void setImageUrl(String[] imageUrl) {
 		ImageUrl = imageUrl;
 	}
+
+	@Override
+	public String toString() {
+		return "FunctionHallUIResponse [name=" + name + ", ownerFirstName=" + ownerFirstName + ", ownerLastName="
+				+ ownerLastName + ", ownerId=" + ownerId + ", functionhalldescription=" + functionhalldescription
+				+ ", functionhalltype=" + functionhalltype + ", foodtype=" + foodtype + ", maximumguest=" + maximumguest
+				+ ", roomtype=" + roomtype + ", ownerContactNumber=" + ownerContactNumber + ", ImageUrl="
+				+ Arrays.toString(ImageUrl) + ", street=" + street + ", state=" + state + ", corelationid="
+				+ corelationid + ", city=" + city + ", zipcode=" + zipcode + ", functionhallContactNumber="
+				+ functionhallContactNumber + "]";
+	}
+	
 
 }

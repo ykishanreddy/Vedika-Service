@@ -14,6 +14,7 @@ public class FunctionHall {
 	private String ownerLastName;
 	private String functionhalldescription;
 	private String functionhalltype;
+	private String foodtype;
 	private int maximumguest;
 	private String roomtype;
 	private String functionhallContactNumber;
@@ -23,6 +24,14 @@ public class FunctionHall {
 	private int zipcode;
 	private String email;
 	private String[] imageUrl;
+
+	public String getFoodtype() {
+		return foodtype;
+	}
+
+	public void setFoodtype(String foodtype) {
+		this.foodtype = foodtype;
+	}
 
 	public String[] getImageUrl() {
 		return imageUrl;

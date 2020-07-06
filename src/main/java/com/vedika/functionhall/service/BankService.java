@@ -9,4 +9,6 @@ import com.vedika.functionhall.model.Bank;
 public interface BankService {
 	
 	List<Bank> findbybank(String branch);
+
+	List<Bank> findbyBranchAndBank(String bankname, String branch);
 }
