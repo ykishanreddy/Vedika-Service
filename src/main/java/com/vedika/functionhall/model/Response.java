@@ -2,6 +2,9 @@ package com.vedika.functionhall.model;
 
 import java.util.List;
 
+
+import java.util.List;
+
 public class Response {
 
 	private List<FunctionHallUIResponse> functionHalls;
@@ -16,9 +19,8 @@ public class Response {
 
 	@Override
 	public String toString() {
-		return "Response [functionHalls=" + functionHalls + ", getFunctionHalls()=" + getFunctionHalls()
-				+ ", getClass()=" + getClass() + ", hashCode()=" + hashCode() + ", toString()=" + super.toString()
-				+ "]";
+		return "Response [functionHalls=" + functionHalls + "]";
 	}
+
 
 }

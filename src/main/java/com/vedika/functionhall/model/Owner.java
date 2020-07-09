@@ -31,8 +31,7 @@ public class Owner {
 	public String toString() {
 		return "Owner [id=" + id + ", name=" + name + ", firstName=" + firstName + ", lastName=" + lastName
 				+ ", functionhallname=" + functionhallname + ", city=" + city + ", state=" + state + ", zipcode="
-				+ zipcode + ", ownerContactNumber=" + ownerContactNumber + ", functionhall=" + functionhall
-				+  "]";
+				+ zipcode + ", ownerContactNumber=" + ownerContactNumber + ", functionhall=" + functionhall + "]";
 	}
 
 	public String getId() {
@@ -115,5 +114,4 @@ public class Owner {
 		this.functionhall = functionhall;
 	}
 
-	
 }

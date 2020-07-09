@@ -1,6 +1,6 @@
 package com.vedika.functionhall.model;
 
-public class Object {
+public class ResponseObject {
 	private String requestId;
 	private String mobileNumber;
 	private String message;
@@ -31,6 +31,7 @@ public class Object {
 
 	@Override
 	public String toString() {
-		return "Object [requestId=" + requestId + ", mobileNumber=" + mobileNumber + ", message=" + message + "]";
+		return "ResponseObject [requestId=" + requestId + ", mobileNumber=" + mobileNumber + ", message=" + message
+				+ "]";
 	}
 }

@@ -17,27 +17,21 @@ import com.vedika.functionhall.repository.StateRepository;
 public class StateServiceImpl implements StateService {
 
 	@Autowired
-	private StateRepository stateRepository; 
-
+	private StateRepository stateRepository;
 
 	@Override
 	public Details saveOrUpdateOwner(Details details) {
 		return stateRepository.save(details);
 	}
 
-
 	@Override
-	public List<Details> findByState(String state) {			
+	public List<Details> findByState(String state) {
 		return stateRepository.findByState(state);
 	}
-
 
 	@Override
 	public List<Details> findAll() {
 		return stateRepository.findAll();
 	}
-
-
-
 
 }

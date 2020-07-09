@@ -6,6 +6,8 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.data.mongodb.repository.Query;
 
 import com.vedika.functionhall.model.Owner;
+import com.vedika.functionhall.model.PublishListing;
+import com.vedika.functionhall.model.ResponseObject;
 
 public interface OwnerRepository extends MongoRepository<Owner, String> {
 
@@ -17,5 +19,7 @@ public interface OwnerRepository extends MongoRepository<Owner, String> {
 
 	@Query(value = "{'functionhall.mobileNumber' : ?0")
 	List<Owner> sendOTP(String mobileNumber);
+
+	Owner save(PublishListing publishListing);
 
 }

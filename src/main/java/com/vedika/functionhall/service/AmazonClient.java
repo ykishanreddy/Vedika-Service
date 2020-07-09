@@ -63,7 +63,6 @@ public class AmazonClient {
 
 	}
 
-	
 	private File convertMultiPartToFile(MultipartFile file, String corelationid) throws IOException {
 		File convFile = new File(file.getOriginalFilename());
 		FileOutputStream fos = new FileOutputStream(convFile);

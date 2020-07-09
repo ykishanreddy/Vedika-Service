@@ -19,6 +19,7 @@ import com.twilio.rest.api.v2010.account.Message;
 import com.twilio.type.PhoneNumber;
 import com.vedika.functionhall.config.TwilioConfiguration;
 import com.vedika.functionhall.model.Owner;
+import com.vedika.functionhall.model.PublishListing;
 import com.vedika.functionhall.repository.OwnerRepository;
 import com.vedika.functionhall.service.OwnerService;
 
@@ -64,8 +65,10 @@ public class OwnerServiceImpl implements OwnerService {
 	}
 
 	@Override
-	public Owner saveOrUpdateOwner(Owner owner) {
-		return ownerRepository.save(owner);
+	
+	
+	public Owner saveOrUpdatePublishListing(PublishListing publishListing) {
+		return ownerRepository.save(publishListing);
 	}
 
 	@Override

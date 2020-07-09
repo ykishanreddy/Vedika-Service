@@ -7,15 +7,17 @@ import org.springframework.data.mongodb.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import com.vedika.functionhall.model.Bank;
+
 @Repository
 public interface BankRespository extends MongoRepository<Bank, String> {
 
-	@Query(value=" {'bankdetails.branch': ?0}", fields="{'bankdetails.$': 1}")
+	@Query(value = " {'data.bank': ?0}")
+	List<Bank> findbybank(String bank);
 
-	List<Bank> findbybank(String branch);
+	@Query(value = "{'data.bank' : ?0,'data.branch':?1}", fields = "{'data.$':1}")
 
+	List<Bank> findbyBranchAndBank(String bank, String branch);
 
-	@Query(value = "{'bankdetails.bankname' : ?0,'bankdetails.branch':?1}",fields="{'bankdetails.$':1}")
+	List<Bank> findAll();
 
-	List<Bank> findbyBranchAndBank(String bankname, String branch);
 }

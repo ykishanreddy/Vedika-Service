@@ -151,7 +151,6 @@ public class FunctionHallUIResponse {
 		this.zipcode = zipcode;
 	}
 
-	
 	public String[] getImageUrl() {
 		return ImageUrl;
 	}
@@ -170,6 +169,5 @@ public class FunctionHallUIResponse {
 				+ corelationid + ", city=" + city + ", zipcode=" + zipcode + ", functionhallContactNumber="
 				+ functionhallContactNumber + "]";
 	}
-	
 
 }

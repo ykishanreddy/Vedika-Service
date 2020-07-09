@@ -1,5 +1,6 @@
 package com.vedika.functionhall.model;
 
+
 import java.util.List;
 
 public class ResponseBankdetails {
