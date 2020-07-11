@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: vedikaser-deployment2
+  labels:
+    app: vedika
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: vedika
+  template:
+    metadata:
+      labels:
+        app: vedika
+    spec:
+      containers:
+      - name: vedikaser
+        image: ykreddys/vedikaser:2ImageTag
+        ports:
+        - name: vedikaser-port
+          containerPort: 8057
